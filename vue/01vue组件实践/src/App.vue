@@ -3,6 +3,13 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <Child1 msg="Welcome to Your Vue.js App" />
     <Child2 foo="helo" @click="test" @mousemove="move"/>
+
+    <MForm :rules="rules" :model="userinfo">
+      <MFormItem label="用户名">
+        <MInput v-model="userinfo.username"></MInput>
+      </MFormItem>
+    </MForm>
+    
   </div>
 </template>
 
@@ -10,10 +17,29 @@
 import Child1 from './components/child1.vue'
 import Child2 from './components/child2.vue'
 
+import MForm from '@/slots/MForm.vue'
+import MFormItem from '@/slots/MFormItem.vue'
+import MInput from '@/slots/MInput.vue'
 export default {
   name: 'App',
   components: {
-    Child1, Child2
+    Child1,
+    Child2,
+    MForm,
+    MFormItem,
+    MInput
+  },
+  data() {
+    return {                             
+      userinfo: {
+        username: '',
+        password: ''
+      },
+      rules: {
+        username: [{ required: true, message: "请输入用户名" }], 
+        password: [{ required: true, message: "请输入密码" }]
+      }
+    }
   },
   methods: {
     test () {
